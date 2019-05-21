@@ -32,7 +32,8 @@ def get_data(username):
                 'date_posted' : datetime.fromtimestamp(video['node']['taken_at_timestamp']),
                 'likes' : video['node']['edge_liked_by']['count'],
                 'comments' : video['node']['edge_media_to_comment']['count'],
-                'type' : video['node']['__typename'][5:],
+                'duration' : video['node']['video_duration'],
+                'title' : video['node']['title'],
                 'caption' : video['node']['edge_media_to_caption']['edges'][0]['node']['text'],
                 'views' : video['node']['video_view_count'],
                 'link' : 'https://www.instagram.com/p/' + video['node']['shortcode'],
@@ -90,9 +91,8 @@ def get_data(username):
         'is_private' : jsontext['graphql']['user']['is_private'],
         'is_verified' : jsontext['graphql']['user']['is_verified'],
         'ig_tv_videos' : jsontext['graphql']['user']['edge_felix_video_timeline']['count'],
-        'is_verified' : jsontext['graphql']['user']['is_verified'],
-        'is_verified' : jsontext['graphql']['user']['is_verified'],
-        'is_verified' : jsontext['graphql']['user']['is_verified'],
+        'highlight_reel_count' : jsontext['graphql']['user']['highlight_reel_count'],
+        'has_channel' : jsontext['graphql']['user']['has_channel'],
         
         'posts': text[4],
         'followers': text[0],
@@ -102,23 +102,23 @@ def get_data(username):
         'followingCount' : jsontext['graphql']['user']['edge_follow']['count'],
         'postCount' : jsontext['graphql']['user']['edge_owner_to_timeline_media']['count'],
 
-        'ig_tv_avg_likes' : ig_tv_likes / ig_tv_videos,
-        'ig_tv_avg_comments' : ig_tv_comments / ig_tv_videos,
-        'ig_tv_avg_views' : ig_tv_views / ig_tv_videos,
-        'ig_tv_avg_like_engagement' : (ig_tv_likes / ig_tv_videos) / (ig_tv_views / ig_tv_videos), 
-        'ig_tv_avg_comments_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_views / ig_tv_videos), 
-        'ig_tv_avg_like_comment_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_likes / ig_tv_videos), 
+        'ig_tv_avg_likes' : ig_tv_likes / ig_tv_videos if ig_tv_videos != 0 else None,
+        'ig_tv_avg_comments' : ig_tv_comments / ig_tv_videos if ig_tv_videos != 0 else None,
+        'ig_tv_avg_views' : ig_tv_views / ig_tv_videos if ig_tv_videos != 0 else None,
+        'ig_tv_avg_like_engagement' : (ig_tv_likes / ig_tv_videos) / (ig_tv_views / ig_tv_videos) if ig_tv_videos != 0 else None, 
+        'ig_tv_avg_comments_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_views / ig_tv_videos) if ig_tv_videos != 0 else None, 
+        'ig_tv_avg_like_comment_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_likes / ig_tv_videos) if ig_tv_videos != 0 else None, 
 
 
         'media_avg_likes' : media_likes / media_count,
         'media_avg_comments' : media_comments / media_count,
-        'media_avg_views' : media_views / media_videos,
-        'media_avg_like_comment_engagement' : (media_comments / media_count) / (media_likes / ig_tv_videos),
+        'media_avg_views' : media_views / media_videos if media_videos != 0 else None,
+        'media_avg_like_comment_engagement' : (media_comments / media_count) / (media_likes / ig_tv_videos) if media_videos != 0 else None,
 
         'engagement_rate' : (media_likes / media_count) / jsontext['graphql']['user']['edge_followed_by']['count'],
 
-        'media_video_avg_like_engagement' : (ig_tv_likes / ig_tv_videos) / (ig_tv_views / ig_tv_videos), 
-        'media_video_avg_comments_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_views / ig_tv_videos), 
+        'media_video_avg_like_engagement' : (ig_tv_likes / ig_tv_videos) / (ig_tv_views / ig_tv_videos) if media_videos != 0 else None, 
+        'media_video_avg_comments_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_views / ig_tv_videos) if media_videos != 0 else None, 
 
         'media_list' : media_list,
 
