@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ data['name'] }}</title>
+</head>
+
+<body>
+    <a href="{{ data['url'] }}"></a> <h1 class="username">{{ data['name'] }}</h1>
+    <div class="container profile">
+            <img class="profile_img" src="{{ data['photo_url'] }}">
+            <div class="data">
+                <div class="stats">
+                    <p>followers: <b>{{ data['followers'] }}</b></p>
+                    <p>followings: <b>{{ data['following'] }}</b></p>
+                    <p>posts: <b>{{ data['posts'] }}</b></p>
+                </div>
+            <pre class="bio">{{ data['bio'] }}</pre>
+        </div></div>
+    <div class="container media_list">
+        <h3>Last 12 Posts</h3>
+        {% for post in data['media_list'] %}
+        <div class="post">
+            <a class="img" href="{{ post['link'] }}" target="_blank"><img src="{{ post['img_url'] }}"></a>
+            <div class="info">
+                <div class="stats">
+                        <p>likes: <b>{{ post['likes'] }}</b></p>
+                        <p>comments: <b>{{ post['comments'] }}</b></p>
+                        {% if post['type'] == 'Video' %}
+                            <p>views: <b>{{ post['views'] }}</b></p>
+                            {% endif %}
+                </div>
+                <p>id: {{ post['id'] }}</p>
+                <p>date posted: {{ post['date_posted'] }}</p>
+                <pre class="caption">{{ post['caption'] }}</pre>
+            </div>
+        </div>    
+        {% endfor %}
+    </div>
+</body>
+
+</html>

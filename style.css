@@ -1,0 +1,72 @@
+@page {
+    margin: 0;
+  }
+
+  pre {
+    white-space: pre-wrap;
+}
+
+
+body {
+    padding: 1.5cm;
+    color: azure;
+    background-color: #303030;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.username {
+    text-align: center;
+    background-color: #212121;
+    line-height: 60px;
+}
+
+.container {
+    padding: 0.5cm;
+    margin: 0.5cm;
+    background-color: #424242;
+    color: azure;
+    border-radius: 15px;
+}
+
+.profile {
+    display: flex;
+    justify-content: space-evenly;  
+    align-items: center;
+}
+
+.profile .profile_img{
+    border-radius: 50%;
+}
+
+.profile .stats{
+    display: flex;
+    justify-content: space-around;
+}
+
+.profile .bio{
+    font-size: 75%;
+}
+
+.post {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.post .img img{
+    max-width: 3cm;
+    padding-right: 10px;
+}
+
+.post p {
+    margin: 0;
+}
+
+.post .info .stats {
+    display: flex;
+    justify-content: space-around;
+}
+
+.post .info .caption {
+    font-size: 75%;
+}
