@@ -51,15 +51,25 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    padding: 20px 0;
 }
 
 .post .img img{
     max-width: 3cm;
+    flex: 1;
     padding-right: 10px;
 }
 
 .post p {
     margin: 0;
+}
+
+.post .info {
+    flex: 1;
+}
+
+.post .info * {
+    padding: 5px 0;
 }
 
 .post .info .stats {

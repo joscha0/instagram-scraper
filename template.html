@@ -7,17 +7,50 @@
 </head>
 
 <body>
-    <a href="{{ data['url'] }}"></a> <h1 class="username">{{ data['name'] }}</h1>
+    <a href="{{ data['url'] }}"></a>
+    <h1 class="username">{{ data['name'] }}</h1>
     <div class="container profile">
-            <img class="profile_img" src="{{ data['photo_url'] }}">
-            <div class="data">
-                <div class="stats">
-                    <p>followers: <b>{{ data['followers'] }}</b></p>
-                    <p>followings: <b>{{ data['following'] }}</b></p>
-                    <p>posts: <b>{{ data['posts'] }}</b></p>
-                </div>
+        <img class="profile_img" src="{{ data['photo_url'] }}">
+        <div class="data">
+            <div class="stats">
+                <p>followers: <b>{{ data['followers'] }}</b></p>
+                <p>followings: <b>{{ data['following'] }}</b></p>
+                <p>posts: <b>{{ data['posts'] }}</b></p>
+            </div>
             <pre class="bio">{{ data['bio'] }}</pre>
-        </div></div>
+        </div>
+    </div>
+    <div class="container profile_stats">
+        <p>followers: <b>{{ data['followerCount'] }}</b></p>
+        <p>followings: <b>{{ data['followingCount'] }}</b></p>
+        <p>posts: <b>{{ data['postCount'] }}</b></p>
+        <p>ig tv videos: <b>{{ data['ig_tv_videos'] }}</b></p>
+        <br>
+        <p>is business account: <b>{{ data['is_business'] }}</b></p>
+        <p>business category name: <b>{{ data['business_category_name'] }}</b></p>
+        <p>is joined recently: <b>{{ data['is_joined_recently'] }}</b></p>
+        <p>is private: <b>{{ data['is_private'] }}</b></p>
+        <p>is verified: <b>{{ data['is_verified'] }}</b></p>
+        <p>highlight reel count: <b>{{ data['highlight_reel_count'] }}</b></p>
+        <p>has channel: <b>{{ data['has_channel'] }}</b></p>
+        <br>
+        <p>engagement_rate: <b>{{ data['engagement_rate'] }}</b></p>
+        <br>
+        <p>ig_tv_avg_likes: <b>{{ data['ig_tv_avg_likes'] }}</b></p>
+        <p>ig_tv_avg_comments: <b>{{ data['ig_tv_avg_comments'] }}</b></p>
+        <p>ig_tv_avg_views: <b>{{ data['ig_tv_avg_views'] }}</b></p>
+        <p>ig_tv_avg_like_engagement: <b>{{ data['ig_tv_avg_like_engagement'] }}</b></p>
+        <p>ig_tv_avg_comments_engagement: <b>{{ data['ig_tv_avg_comments_engagement'] }}</b></p>
+        <p>ig_tv_avg_like_comment_engagement: <b>{{ data['ig_tv_avg_like_comment_engagement'] }}</b></p>
+        <br>
+        <p>media_avg_likes: <b>{{ data['media_avg_likes'] }}</b></p>
+        <p>media_avg_comments: <b>{{ data['media_avg_comments'] }}</b></p>
+        <p>media_avg_views: <b>{{ data['media_avg_views'] }}</b></p>
+        <p>media_avg_like_comment_engagement: <b>{{ data['media_avg_like_comment_engagement'] }}</b></p>
+        <br>
+        <p>media_video_avg_like_engagement: <b>{{ data['media_video_avg_like_engagement'] }}</b></p>
+        <p>media_video_avg_comments_engagement: <b>{{ data['media_video_avg_comments_engagement'] }}</b></p>
+    </div>
     <div class="container media_list">
         <h3>Last 12 Posts</h3>
         {% for post in data['media_list'] %}
@@ -25,17 +58,41 @@
             <a class="img" href="{{ post['link'] }}" target="_blank"><img src="{{ post['img_url'] }}"></a>
             <div class="info">
                 <div class="stats">
-                        <p>likes: <b>{{ post['likes'] }}</b></p>
-                        <p>comments: <b>{{ post['comments'] }}</b></p>
-                        {% if post['type'] == 'Video' %}
-                            <p>views: <b>{{ post['views'] }}</b></p>
-                            {% endif %}
+                    <p>likes: <b>{{ post['likes'] }}</b></p>
+                    <p>comments: <b>{{ post['comments'] }}</b></p>
+                    {% if post['type'] == 'Video' %}
+                    <p>views: <b>{{ post['views'] }}</b></p>
+                    {% endif %}
                 </div>
                 <p>id: {{ post['id'] }}</p>
                 <p>date posted: {{ post['date_posted'] }}</p>
+                <p>views: {{ post['views'] }}</p>
                 <pre class="caption">{{ post['caption'] }}</pre>
             </div>
-        </div>    
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container ig_tv_list">
+        <h3>Last 12 IGTV videos</h3>
+        {% for post in data['ig_tv_list'] %}
+        <div class="post">
+            <a class="img" href="{{ post['link'] }}" target="_blank"><img src="{{ post['img_url'] }}"></a>
+            <div class="info">
+                <div class="stats">
+                    <p>likes: <b>{{ post['likes'] }}</b></p>
+                    <p>comments: <b>{{ post['comments'] }}</b></p>
+                    {% if post['type'] == 'Video' %}
+                    <p>views: <b>{{ post['views'] }}</b></p>
+                    {% endif %}
+                </div>
+                <p>id: {{ post['id'] }}</p>
+                <p>date posted: {{ post['date_posted'] }}</p>
+                <p>duration: {{ post['duration'] }}</p>
+                <p>views: {{ post['views'] }}</p>
+
+                <pre class="caption">{{ post['caption'] }}</pre>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </body>
