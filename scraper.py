@@ -77,8 +77,7 @@ def get_data(username):
     media_video_comment_engagement = 0
     if media_videos != 0:
         media_video_like_engagement = (ig_tv_likes / ig_tv_videos) / (ig_tv_views / ig_tv_videos)
-    #with open('output.txt', 'a') as output_file:
-     #   output_file.write(str(jsontext))
+    
 
     return {
         'name' : username,
@@ -110,15 +109,12 @@ def get_data(username):
         'ig_tv_avg_like_comment_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_likes / ig_tv_videos) if ig_tv_videos != 0 else None, 
 
 
-        'media_avg_likes' : media_likes / media_count,
-        'media_avg_comments' : media_comments / media_count,
+        'media_avg_likes' : media_likes / media_count if media_count != 0 else None,
+        'media_avg_comments' : media_comments / media_count if media_count != 0 else None,
         'media_avg_views' : media_views / media_videos if media_videos != 0 else None,
-        'media_avg_like_comment_engagement' : (media_comments / media_count) / (media_likes / ig_tv_videos) if media_videos != 0 else None,
+        'media_avg_like_comment_engagement' : (media_comments / media_count) / (media_likes / media_count) if media_count != 0 else None,
 
-        'engagement_rate' : (media_likes / media_count) / jsontext['graphql']['user']['edge_followed_by']['count'],
-
-        'media_video_avg_like_engagement' : (ig_tv_likes / ig_tv_videos) / (ig_tv_views / ig_tv_videos) if media_videos != 0 else None, 
-        'media_video_avg_comments_engagement' : (ig_tv_comments / ig_tv_videos) / (ig_tv_views / ig_tv_videos) if media_videos != 0 else None, 
+        'engagement_rate' : (media_likes / media_count) / jsontext['graphql']['user']['edge_followed_by']['count'] if media_count != 0 and jsontext['graphql']['user']['edge_followed_by']['count'] != 0 else None,
 
         'media_list' : media_list,
 
@@ -126,21 +122,26 @@ def get_data(username):
     }
 
 if __name__ == '__main__':
-    data = get_data(str(sys.argv[1]))
+    print(str(sys.argv[1]))
+    #try: 
+    data = get_data(str(sys.argv[1])) 
+    with open('output.json', 'w') as output_file:
+        json.dump(data,output_file, default=str)
     for key in data:
         if (key == 'media_list'):
             print('\n\n\033[1mmedia_list:\033[0;0m') 
             for post in data[key]:
                 for item in post:
-                     print('\t'+'\033[1m' + item + ': ' + '\033[0;0m' + str(post[item]))
+                    print('\t'+'\033[1m' + item + ': ' + '\033[0;0m' + str(post[item]))
                 print()
         elif (key == 'ig_tv_list'):
             print('\n\n\033[1mig_tv_list:\033[0;0m') 
             for video in data[key]:
                 for item in video:
-                     print('\t'+'\033[1m' + item + ': ' + '\033[0;0m' + str(video[item]))
+                    print('\t'+'\033[1m' + item + ': ' + '\033[0;0m' + str(video[item]))
                 print()
         else:
             print('\033[1m' + key + ': ' + '\033[0;0m' + str(data[key])+'\n\n')
-        
+    #except:
+        #print("Unable to get instagram account name. Please make sure it's valid and try again.")
     
