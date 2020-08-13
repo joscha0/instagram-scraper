@@ -18,6 +18,7 @@ def get_data(username):
     retext = re.findall(
         '<script type="text\/javascript">([^{]+?({.*profile_pic_url.*})[^}]+?)<\/script>', str(soup))[0][1]
     jsontext = json.loads(retext)['entry_data']['ProfilePage'][0]
+    print(jsontext)
     ig_tv_likes = 0
     ig_tv_comments = 0
     ig_tv_views = 0
