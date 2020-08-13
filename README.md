@@ -35,6 +35,22 @@ or
 python scraper.py <username>
 ```
 
+## Get post data
+### As library
+
+```python
+from getpostdata import get_post_data
+
+print(get_post_data('<url>'))
+```
+
+
+### As script
+
+```bash
+python getpostdata.py <url>
+```
+
 # Get a cool PDF summary
 Scrapes data from an Instagram Profile and prints it out in a nice and easy to read pdf file.
 
