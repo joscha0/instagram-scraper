@@ -34,3 +34,14 @@ or
 ```bash
 python scraper.py <username>
 ```
+
+# Get a cool PDF summary
+Scrapes data from an Instagram Profile and prints it out in a nice and easy to read pdf file.
+
+:warning: requires [weasyprint](https://weasyprint.readthedocs.io/en/stable/index.html)
+
+### Usage
+
+```bash
+python getpdf.py <username>
+```
